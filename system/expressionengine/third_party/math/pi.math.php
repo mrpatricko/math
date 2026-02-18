@@ -90,22 +90,26 @@ class Math
 
 				// Format response
 				if ($decimals !== false) {
-					$result = number_format((int) $parts[0], 0, $decimalPoint, $thousandsSeparator);
+					$decimals = (int) $decimals;
 
-					if ($decimals > 0) {
-						if ($decimalDigits < $decimals && $trailingZeros) {
-							$result .= '.' . str_pad($decimalValue, $decimals, 0);
-						} else {
-							$result .= $decimalValue ? ('.' . $decimalValue) : '';
-						}
-					}
-				} else {
+					// Always enforce the requested number of decimals
+					$result = number_format(
+						(float) $result,
+						$decimals,
+						$decimalPoint,
+						$thousandsSeparator
+					);
+			} else {
 					$decimals = $decimalDigits;
 
 					$result = number_format(
-						(float) $result, $decimals, $decimalPoint, $thousandsSeparator
+						(float) $result,
+						$decimals,
+						$decimalPoint,
+						$thousandsSeparator
 					);
 				}
+
 			}
 		}
 
